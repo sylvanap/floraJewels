@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order earrings</title>
+    <style>
+        body {text-align: center; background-color: rgb(255, 233, 245);}
+        #enterDetails {width: 100%; background-color: rgb(255, 233, 245); color: rgb(0, 0, 0);}
+        input{width: 120px;}
+        
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color:  rgb(217, 201, 201);;
+        }
+        
+        li {
+        float: left;
+        }
+        
+        li a {
+        display: block;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+        
+        li a:hover {
+        background-color: #ffecf4;
+        
+        }
+        p.solid {border-style: solid; border-color:rgb(81, 255, 0);}
+        h1 { color: rgb(0, 0, 0);}
+        h1 { text-align: center; font-size: 70px;} 
+        h4 { font-size: 30px;}
+        h5 {font-size: 20px; color: rgb(95, 95, 95);}
+
+
+       
+
+       
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="in.html">Home</a></li>
+        <li><a href="practice.html">Necklaces</a></li>
+        <li><a href="buy%20earrings.html">Earrings</a></li>
+        </ul>
+
+        <br>
+    
+    <div id="enterDetails">
+        <h1>♡Checkout♡</h1>
+        <h4>Full Name</h4>
+        <input id="enterFullName" type="text" placeholder="Sylvana Perumalla" style= "width: 200px; height: 20px;">
+
+        <h4>Year level and Whanau</h4>
+        <input id="enterYear" type="text" placeholder="00 & ABC" style= "width: 200px; height: 20px;">
+
+        <h4>Quantity</h4>
+        <input id="enterQuantity" type="number" placeholder="1" style= "width: 200px; height: 20px;"> <br><br>
+
+        <button style="font-size: 16px; padding: 10px 20px; background-color: rgb(217, 201, 201);" id="Place">Place order</button>
+        <button style="font-size: 16px; padding: 10px 20px; background-color: rgb(217, 201, 201);" id="Update">Update order</button>
+        <button style="font-size: 16px; padding: 10px 20px; background-color: rgb(217, 201, 201);" id="Remove">Remove order</button> <br><br>
+
+        <h5>Disclaimer:  <br> this information won't be shared with anyone outside of the Flora Jewels business group </h5>
+        
+</div>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBd2BKjW-7U47Pk2NxcDUWE6jEIN8fqoKY",
+      authDomain: "earrings-database.firebaseapp.com",
+      databaseURL: "https://earrings-database-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "earrings-database",
+      storageBucket: "earrings-database.appspot.com",
+      messagingSenderId: "656678649502",
+      appId: "1:656678649502:web:5d7e516e594e057827458f"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+
+         import {getDatabase, set, get, update, remove, ref, child}
+         from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"
+
+         const db = getDatabase();
+
+         var enterFullName = document.querySelector("#enterFullName");
+         var enterYear = document.querySelector("#enterYear");
+         var enterQuantity = document.querySelector("#enterQuantity");
+
+         var PlaceBtn = document.querySelector("#Place");
+         var UpdateBtn = document.querySelector("#Update");
+         var RemoveBtn = document.querySelector("#Remove");
+         
+
+         
+         function PlaceData() {
+            set(ref(db, "People/" + enterFullName.value), {
+                Year: enterYear.value,
+                FullName: enterFullName.value,
+                Quantity: enterQuantity.value
+
+            })
+            .then(()=>{
+                alert("Data Added successfully");
+            })
+            .catch((error)=>{
+             alert(error);
+            });
+
+         }
+
+       
+
+         function UpdateData() {
+          update(ref(db, "People/" + enterFullName.value), {
+            Year: enterYear.value,
+            Quantity: enterQuantity.value
+          })
+          .then(()=>{
+            alert("data updated successfully");
+          })
+          .catch((error)=>{
+            alert(error);
+          });
+         }
+         
+         function RemoveData() {
+            remove(ref(db, "People/" + enterFullName.value))
+            .then(()=>{
+                alert("data removed succesfully");
+            })
+            .catch ((error)=>{
+            alert (error);
+            });
+         }
+
+         PlaceBtn.addEventListener('click', PlaceData);
+         UpdateBtn.addEventListener('click', UpdateData);
+         RemoveBtn.addEventListener('click', RemoveData);
+         
+
+
+
+
+
+
+          </script>
+</body>
+</html>
